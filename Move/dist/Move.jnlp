@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Move.jnlp">
+  <information>
+    <title>Move</title>
+    <vendor>Konrad</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Move.jar" size="2377" download="eager" />
+  </resources>
+  <application-desc main-class="Main"  name="Move" >
+  </application-desc>
+  <update check="always"/>
+</jnlp>
