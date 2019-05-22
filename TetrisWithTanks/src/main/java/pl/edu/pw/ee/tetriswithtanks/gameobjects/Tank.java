@@ -29,8 +29,9 @@ public class Tank extends GraphicObject {
         double gunHeight = tankHeight * 3 / 4;
         gun = new Rectangle(gunX, gunY, gunWidth, gunHeight);
         gun.setFill(color.color.darker());
-
+//System.out.println("Basia");
         addTankToGamePane();
+        System.out.println("Basia");
     }
 
     @Override
@@ -96,7 +97,8 @@ public class Tank extends GraphicObject {
         return tank.getWidth();
     }
 
-    private void rotateGun(double angle) {
+    private void rotateGun(double angle) {//to mnie nie interesuje
+        
         double gunCenterX = gun.getX() + gun.getWidth() / 2;
         double gunDownY = gun.getY() + gun.getHeight();
 

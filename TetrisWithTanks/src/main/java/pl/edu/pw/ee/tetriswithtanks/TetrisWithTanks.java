@@ -16,6 +16,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import pl.edu.pw.ee.tetriswithtanks.gameobjects.Block;
 import pl.edu.pw.ee.tetriswithtanks.gameobjects.Bullet;
 import static pl.edu.pw.ee.tetriswithtanks.gameobjects.PointsWithColor.PLAYER_1;
 import static pl.edu.pw.ee.tetriswithtanks.gameobjects.PointsWithColor.PLAYER_2;
@@ -30,14 +31,19 @@ public class TetrisWithTanks extends Application {
     private final int tankWidth = 50;
     private final int tankHeight = 70;
     private final int gunWidth = 20;
+    private final int blockWidth = 70;
+    private final int blockHeight = 70;
 
     private Tank leftPlayer;
     private Tank rightPlayer;
+    private Block block;
 
     private final List<Bullet> bullets;
+    private final List<Block> blocks;
 
     public TetrisWithTanks() {
         bullets = new ArrayList<>();
+        blocks = new ArrayList<>();
     }
 
     @Override
@@ -54,6 +60,7 @@ public class TetrisWithTanks extends Application {
         Pane gamePane = prepareGamePane(mainGrid);
 
         preparePlayers(gamePane);
+        prepareBlocks( gamePane);
 
         scene.setOnKeyPressed(tankController());
 
@@ -64,7 +71,8 @@ public class TetrisWithTanks extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        startAutomaticMoves(bullets);
+        startAutomaticMoves(bullets,blocks);
+        
     }
 
     public static void main(String[] args) {
@@ -116,15 +124,25 @@ public class TetrisWithTanks extends Application {
         double player2StartX = sceneWidth - tankWidth;
         rightPlayer = new Tank(player2StartX, tankWidth, tankHeight, gunWidth, PLAYER_2, gamePane);
     }
+    private void prepareBlocks(Pane gamePane) {
+        block = new Block(100, blockWidth, blockHeight, gamePane,PLAYER_1);
+
+        
+    }
+    
+    
 
     private TankKeyEventController tankController() {
         return new TankKeyEventController(leftPlayer, rightPlayer, bullets);
     }
 
-    private void startAutomaticMoves(List<Bullet> bullets) {
-        AutomaticMovesThread automaticMoves = new AutomaticMovesThread(bullets);
+    private void startAutomaticMoves(List<Bullet> bullets,List<Block> blocks) {
+        AutomaticMovesThread automaticMoves = new AutomaticMovesThread(bullets,blocks);
+        
         automaticMoves.start();
+        
     }
+    
 
     @Override
     public void stop() throws Exception {
