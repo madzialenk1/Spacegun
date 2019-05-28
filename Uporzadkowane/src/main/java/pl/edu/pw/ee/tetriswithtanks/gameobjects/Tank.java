@@ -15,7 +15,7 @@ public class Tank extends GraphicObject {
     private final double maxGunAngle = 45;
     private double gunAngle = 0;
 
-    private final int angleToRotate = 1;
+    private final int angleToRotate = 5;
 
     public Tank(double x, double tankWidth, double tankHeight, double gunWidth, PointsWithColor color, Pane gamePane) {
         super(gamePane, color);
@@ -29,9 +29,9 @@ public class Tank extends GraphicObject {
         double gunHeight = tankHeight * 3 / 4;
         gun = new Rectangle(gunX, gunY, gunWidth, gunHeight);
         gun.setFill(color.color.darker());
-//System.out.println("Basia");
+
         addTankToGamePane();
-        System.out.println("Basia");
+       
     }
 
     @Override
@@ -57,14 +57,14 @@ public class Tank extends GraphicObject {
 
     public void gunRotateLeft() {
         if (gunAngle > -maxGunAngle) {
-            gunAngle--;
+            gunAngle=gunAngle-5;
             rotateGun(-angleToRotate);
         }
     }
 
     public void gunRotateRight() {
         if (gunAngle < maxGunAngle) {
-            gunAngle++;
+            gunAngle=gunAngle+5;
             rotateGun(angleToRotate);
         }
     }

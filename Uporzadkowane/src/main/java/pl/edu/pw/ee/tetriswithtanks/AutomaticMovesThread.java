@@ -40,7 +40,6 @@ public class AutomaticMovesThread extends Thread {
 
         for (int i = 0; i < bullets.size(); i++) {
             bullet = bullets.get(i);
-System.out.println("Lol");
             if (bullet.isVisibleForPlayer()) {
                 moveBullet(bullet);
             } else {
