@@ -285,7 +285,7 @@ public class TetrisWithTanks extends Application {
      
       Random rand = new Random(2);
       
-      int n = rand.nextInt(2);
+   int n = rand(0, 3);
         
         if(n==0)
         x=kolor1;
@@ -293,7 +293,6 @@ public class TetrisWithTanks extends Application {
             x=kolor2;
         if(n==2)
             x=kolor3;
-        
        
         
         rectangle.setFill(x);
