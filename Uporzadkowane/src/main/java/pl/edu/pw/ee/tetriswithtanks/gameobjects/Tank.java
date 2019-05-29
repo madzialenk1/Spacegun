@@ -31,7 +31,7 @@ public class Tank extends GraphicObject {
         gun.setFill(color.color.darker());
 
         addTankToGamePane();
-       
+
     }
 
     @Override
@@ -55,16 +55,18 @@ public class Tank extends GraphicObject {
         return bullet;
     }
 
+    public static boolean leftmoveleft = true, leftmoveright = true, rightmoveleft = true, rightmoveright = true;
+
     public void gunRotateLeft() {
         if (gunAngle > -maxGunAngle) {
-            gunAngle=gunAngle-5;
+            gunAngle = gunAngle - 5;
             rotateGun(-angleToRotate);
         }
     }
 
     public void gunRotateRight() {
         if (gunAngle < maxGunAngle) {
-            gunAngle=gunAngle+5;
+            gunAngle = gunAngle + 5;
             rotateGun(angleToRotate);
         }
     }
@@ -98,7 +100,7 @@ public class Tank extends GraphicObject {
     }
 
     private void rotateGun(double angle) {//to mnie nie interesuje
-        
+
         double gunCenterX = gun.getX() + gun.getWidth() / 2;
         double gunDownY = gun.getY() + gun.getHeight();
 
