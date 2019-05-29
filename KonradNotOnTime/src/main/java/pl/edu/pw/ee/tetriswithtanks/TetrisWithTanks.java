@@ -60,8 +60,8 @@ public class TetrisWithTanks extends Application {
     double speed;
     private Tank leftPlayer;
     private Tank rightPlayer;
-    public final List<Rectangle>rectangle1;
-    
+    public final List<Rectangle> rectangle1;
+
     double falling;
     boolean dead = false;
 
@@ -76,55 +76,68 @@ public class TetrisWithTanks extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        Font text = new Font("Informal Roman", 40);
+        Font title = new Font("Informal Roman", 50);
+
+        final int buttonHeight = 75;
+        final int buttonWidth = 250;
+        
+
         Button button1 = new Button("Start game");
-        button1.setPrefHeight(50);
-        button1.setPrefWidth(150);
+        button1.setFont(text);
+        button1.setPrefHeight(buttonHeight);
+        button1.setPrefWidth(buttonWidth);
         button1.setTranslateY(-100);
         button1.setOnAction(e -> startGame(primaryStage));
-     
+        
 
         Button button2 = new Button("Designers");
-        button2.setPrefHeight(50);
-        button2.setPrefWidth(150);
+        button2.setFont(text);
+        button2.setPrefHeight(buttonHeight);
+        button2.setPrefWidth(buttonWidth);
         button2.setTranslateY(0);
         button2.setOnAction(e -> primaryStage.setScene(scene2));
 
         Button button3 = new Button("Exit");
-        button3.setPrefHeight(50);
-        button3.setPrefWidth(150);
+        button3.setFont(text);
+        button3.setPrefHeight(buttonHeight);
+        button3.setPrefWidth(buttonWidth);
         button3.setTranslateY(100);
         button3.setOnAction(e -> System.exit(0));
 
         Button button4 = new Button("Back");
-        button4.setPrefHeight(50);
-        button4.setPrefWidth(150);
+        button4.setFont(text);
+        button4.setPrefHeight(buttonHeight);
+        button4.setPrefWidth(buttonWidth);
         button4.setTranslateY(100);
         button4.setOnAction(e -> primaryStage.setScene(scene1));
 
-        Label label1 = new Label("Ruciński Konrad");
+        Label label1 = new Label("Rucinski Konrad");
         label1.setTranslateY(-100);
-        label1.setFont(new Font("Arial", 30));
+        label1.setFont(title);
 
-        Label label2 = new Label("Magdalena Pękacka");
+        Label label2 = new Label("Magdalena Pekacka");
         label2.setTranslateY(0);
-        label2.setFont(new Font("Arial", 30));
+        label2.setFont(title);
+        
+        Label label3 = new Label("SPACEGUN");
+          label3.setFont(title);
+          label3.setTranslateY(-220);
+      
 
         StackPane layout1 = new StackPane();
-        layout1.getChildren().addAll(button1, button2, button3);
+        layout1.getChildren().addAll(button1, button2, button3, label3);
         scene1 = new Scene(layout1, sceneWidth, sceneHeight);
+      
         StackPane layout2 = new StackPane();
         layout2.getChildren().addAll(label1, label2, button4);
         scene2 = new Scene(layout2, sceneWidth, sceneHeight);
         primaryStage.setScene(scene1);
         primaryStage.setTitle("Main menu");
+        primaryStage.setResizable(false);
         primaryStage.show();
-        
-   
-
 
     }
-
-   
 
     public void startGame(Stage primaryStage) {
         speed = 1;
@@ -136,9 +149,8 @@ public class TetrisWithTanks extends Application {
         mainGrid.add(scoresGrid, 0, 0);
 
         //prepareLeftScoresPane(scoresGrid);
-    
         Pane gamePane = prepareGamePane(mainGrid);
-     prepareRightScoresPane(scoresGrid);
+        prepareRightScoresPane(scoresGrid);
         preparePlayers(gamePane);
 
         falling = 500;
@@ -182,11 +194,12 @@ public class TetrisWithTanks extends Application {
 
     private GridPane prepareGridPane() {
         GridPane grid = new GridPane();
-        
+
         grid.setMaxSize(sceneWidth, sceneHeight);
         return grid;
     }
-/*
+
+    /*
     private void prepareLeftScoresPane(GridPane grid) {
         Pane leftScoresPane = prepareScoresPane();
         grid.add(leftScoresPane, 0, 0);
@@ -194,7 +207,7 @@ public class TetrisWithTanks extends Application {
 
     private void prepareRightScoresPane(GridPane grid) {
         Pane rightScoresPane = prepareScoresPane();
-        
+
         grid.add(rightScoresPane, 1, 0);
     }
 
@@ -223,12 +236,9 @@ public class TetrisWithTanks extends Application {
     }
 
     private void preparePlayers(Pane gamePane) {
-        
-        
-  
+
         leftPlayer = new Tank(0, tankWidth, tankHeight, gunWidth, PLAYER_1, gamePane);
-    
-                
+
         double player2StartX = sceneWidth - tankWidth;
         rightPlayer = new Tank(player2StartX, tankWidth, tankHeight, gunWidth, PLAYER_2, gamePane);
     }
@@ -248,14 +258,14 @@ public class TetrisWithTanks extends Application {
 
         for (int i = 0; i < drop.size(); i++) {
             ((Rectangle) drop.get(i)).setLayoutY(((Rectangle) drop.get(i)).getLayoutY() + speed);
-             for (Rectangle rectangle:rectangle1){
-               for(Bullet bullet:bullets){
-                   if (rectangle.getBoundsInParent().intersects(bullet.getcircle().getBoundsInParent())) {
-                    rectangle.setVisible(false);
-                   // bullet.setVisible(false);
-                } 
-               }
-             } 
+            for (Rectangle rectangle : rectangle1) {
+                for (Bullet bullet : bullets) {
+                    if (rectangle.getBoundsInParent().intersects(bullet.getcircle().getBoundsInParent())) {
+                        rectangle.setVisible(false);
+                        // bullet.setVisible(false);
+                    }
+                }
+            }
             //if missed remove
             if (((Rectangle) drop.get(i)).getLayoutY() >= 700) {
                 root.getChildren().remove(((Rectangle) drop.get(i)));
@@ -271,9 +281,9 @@ public class TetrisWithTanks extends Application {
     }
 
     Color kolor3 = Color.GREEN;
-    Color kolor1= Color.BLUE;
-    Color kolor2=Color.RED;
-       Color x;
+    Color kolor1 = Color.BLUE;
+    Color kolor2 = Color.RED;
+    Color x;
 
     public Rectangle rectangle() {
         Rectangle rectangle = new Rectangle();
@@ -282,25 +292,25 @@ public class TetrisWithTanks extends Application {
         rectangle.setHeight(50);
         rectangle.setWidth(70);
         rectangle1.add(rectangle);
-     
-      Random rand = new Random(2);
-      
-   int n = rand(0, 3);
-        
-        if(n==0)
-        x=kolor1;
-        if(n==1)
-            x=kolor2;
-        if(n==2)
-            x=kolor3;
-       
-        
+
+        Random rand = new Random(2);
+
+        int n = rand(0, 3);
+
+        if (n == 0) {
+            x = kolor1;
+        }
+        if (n == 1) {
+            x = kolor2;
+        }
+        if (n == 2) {
+            x = kolor3;
+        }
+
         rectangle.setFill(x);
         return rectangle;
-        
-    }
 
-    
+    }
 
     @Override
     public void stop() throws Exception {
