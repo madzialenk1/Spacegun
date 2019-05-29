@@ -60,8 +60,8 @@ public class TetrisWithTanks extends Application {
     double speed;
     private Tank leftPlayer;
     private Tank rightPlayer;
-
-    Rectangle cont;
+    public final List<Rectangle>rectangle1;
+    
     double falling;
     boolean dead = false;
 
@@ -69,7 +69,7 @@ public class TetrisWithTanks extends Application {
 
     public TetrisWithTanks() {
         bullets = new ArrayList<>();
-
+        rectangle1 = new ArrayList<>();
     }
     Scene scene1, scene2;
 
@@ -248,7 +248,14 @@ public class TetrisWithTanks extends Application {
 
         for (int i = 0; i < drop.size(); i++) {
             ((Rectangle) drop.get(i)).setLayoutY(((Rectangle) drop.get(i)).getLayoutY() + speed);
-
+             for (Rectangle rectangle:rectangle1){
+               for(Bullet bullet:bullets){
+                   if (rectangle.getBoundsInParent().intersects(bullet.getcircle().getBoundsInParent())) {
+                    rectangle.setVisible(false);
+                   // bullet.setVisible(false);
+                } 
+               }
+             } 
             //if missed remove
             if (((Rectangle) drop.get(i)).getLayoutY() >= 700) {
                 root.getChildren().remove(((Rectangle) drop.get(i)));
@@ -274,7 +281,7 @@ public class TetrisWithTanks extends Application {
         rectangle.setLayoutY(1);
         rectangle.setHeight(50);
         rectangle.setWidth(70);
-
+        rectangle1.add(rectangle);
      
       Random rand = new Random(2);
       

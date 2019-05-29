@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+
 import javafx.scene.shape.Shape;
 import static pl.edu.pw.ee.tetriswithtanks.gameobjects.PointsWithColor.BULLET_BLUE;
 
@@ -28,6 +29,9 @@ public class Bullet extends GraphicObject {
     @Override
     public List<Shape> getShapes() {
         return Arrays.asList(new Shape[]{circle});
+    }
+    public Circle getcircle(){
+        return circle;
     }
 
     public void moveByStep() {
