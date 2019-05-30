@@ -13,24 +13,20 @@ public class AutomaticMovesThread extends Thread {
     private static final Logger LOG = Logger.getLogger(AutomaticMovesThread.class.getName());
 
     private final List<Bullet> bullets;
-    
+
     private final long bulletTimeToSlipInMillis = 10;
     private final long blockTimeToSlipInMillis = 10;
+
     public AutomaticMovesThread(List<Bullet> bullets) {
         this.bullets = bullets;
-       
+
     }
 
-
-    
-
-    
-    
     @Override
     public void run() {
         while (true) {
             moveBullets();
-            
+
         }
     }
 
@@ -55,18 +51,12 @@ public class AutomaticMovesThread extends Thread {
             LOG.log(INFO, "Something goes wrong during AutomaticMovesThread -> run() -> moveBullets() errorMessage: {0}", e.getMessage());
         }
     }
-    
-    
-   
-        
-    
 
     private void moveBullet(Bullet bullet) {
         Platform.runLater(() -> {
             bullet.moveByStep();
         });
     }
-    
 
     private void markBulletAsDeleted(Bullet bullet, List<Bullet> bulletsToRemove) {
         Platform.runLater(() -> {
@@ -76,5 +66,4 @@ public class AutomaticMovesThread extends Thread {
         bulletsToRemove.add(bullet);
     }
 
-    }
-
+}

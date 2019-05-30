@@ -71,8 +71,12 @@ public class TetrisWithTanks extends Application {
         bullets = new ArrayList<>();
         rectangle1 = new ArrayList<>();
     }
-    Scene scene1, scene2;
+    Scene scene1, scene2, scene3;
 
+    void switchToOne(Stage primaryStage){
+        primaryStage.setScene(scene1);
+    }
+    
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -81,7 +85,6 @@ public class TetrisWithTanks extends Application {
 
         final int buttonHeight = 75;
         final int buttonWidth = 250;
-        
 
         Button button1 = new Button("Start game");
         button1.setFont(text);
@@ -89,7 +92,6 @@ public class TetrisWithTanks extends Application {
         button1.setPrefWidth(buttonWidth);
         button1.setTranslateY(-100);
         button1.setOnAction(e -> startGame(primaryStage));
-        
 
         Button button2 = new Button("Designers");
         button2.setFont(text);
@@ -111,6 +113,22 @@ public class TetrisWithTanks extends Application {
         button4.setPrefWidth(buttonWidth);
         button4.setTranslateY(100);
         button4.setOnAction(e -> primaryStage.setScene(scene1));
+        
+        Button button5 = new Button("Menu");
+        button5.setFont(text);
+        button5.setPrefHeight(buttonHeight);
+        button5.setPrefWidth(buttonWidth);
+        button5.setTranslateY(0);
+        button5.setOnAction(e -> primaryStage.setScene(scene1));
+        
+        Button button6 = new Button("Exit");
+        button6.setFont(text);
+        button6.setPrefHeight(buttonHeight);
+        button6.setPrefWidth(buttonWidth);
+        button6.setTranslateY(100);
+        button6.setOnAction(e -> System.exit(0));
+        
+        
 
         Label label1 = new Label("Rucinski Konrad");
         label1.setTranslateY(-100);
@@ -119,19 +137,29 @@ public class TetrisWithTanks extends Application {
         Label label2 = new Label("Magdalena Pekacka");
         label2.setTranslateY(0);
         label2.setFont(title);
-        
+
         Label label3 = new Label("SPACEGUN");
-          label3.setFont(title);
-          label3.setTranslateY(-220);
-      
+        label3.setFont(title);
+        label3.setTranslateY(-220);
+        
+        Label label4 = new Label("GAME OVER");
+        label4.setFont(title);
+        label4.setTranslateY(-150);
+        
+        
 
         StackPane layout1 = new StackPane();
         layout1.getChildren().addAll(button1, button2, button3, label3);
         scene1 = new Scene(layout1, sceneWidth, sceneHeight);
-      
+
         StackPane layout2 = new StackPane();
         layout2.getChildren().addAll(label1, label2, button4);
         scene2 = new Scene(layout2, sceneWidth, sceneHeight);
+        
+        StackPane layout3 = new StackPane();
+        layout3.getChildren().addAll(button5, button6, label4);
+        scene3 = new Scene(layout3, sceneWidth, sceneHeight);
+        
         primaryStage.setScene(scene1);
         primaryStage.setTitle("Main menu");
         primaryStage.setResizable(false);
@@ -168,7 +196,7 @@ public class TetrisWithTanks extends Application {
 
             @Override
             public void handle(long arg0) {
-                gameUpdate();
+                gameUpdate(primaryStage);
 
             }
 
@@ -185,6 +213,7 @@ public class TetrisWithTanks extends Application {
         primaryStage.show();
 
         startAutomaticMoves(bullets);
+       
 
     }
 
@@ -199,12 +228,6 @@ public class TetrisWithTanks extends Application {
         return grid;
     }
 
-    /*
-    private void prepareLeftScoresPane(GridPane grid) {
-        Pane leftScoresPane = prepareScoresPane();
-        grid.add(leftScoresPane, 0, 0);
-    }*/
-
     private void prepareRightScoresPane(GridPane grid) {
         Pane rightScoresPane = prepareScoresPane();
 
@@ -217,7 +240,7 @@ public class TetrisWithTanks extends Application {
         scoresPane.setMinSize(sceneWidth / 2, scoresPanelHeight);
         scoresPane.setMaxSize(sceneWidth / 2, scoresPanelHeight);
 
-        Text points = new Text("Wynik");
+        Text points = new Text("Wynik: " + result);
         scoresPane.getChildren().add(points);
 
         return scoresPane;
@@ -228,7 +251,6 @@ public class TetrisWithTanks extends Application {
         gamePane.setMinSize(sceneWidth, gamePanelHeight);
         gamePane.setMaxSize(sceneWidth, gamePanelHeight);
         gamePane.setBackground(new Background(new BackgroundFill(Color.ALICEBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-        //Aliceblue
 
         grid.add(gamePane, 0, 1);
 
@@ -254,7 +276,9 @@ public class TetrisWithTanks extends Application {
 
     }
 
-    public void gameUpdate() {
+    int result = 0;
+
+    public void gameUpdate(Stage primaryStage) {
 
         for (int i = 0; i < drop.size(); i++) {
             ((Rectangle) drop.get(i)).setLayoutY(((Rectangle) drop.get(i)).getLayoutY() + speed);
@@ -262,11 +286,22 @@ public class TetrisWithTanks extends Application {
                 for (Bullet bullet : bullets) {
                     if (rectangle.getBoundsInParent().intersects(bullet.getcircle().getBoundsInParent())) {
                         rectangle.setVisible(false);
+                        result++;
+                         System.out.println(result/ 55);
+        
+        if(result/55>=200){
+              primaryStage.setScene(scene3);
+        }
+                        
+                       
+                        
+                        
+
                         // bullet.setVisible(false);
                     }
                 }
             }
-            //if missed remove
+
             if (((Rectangle) drop.get(i)).getLayoutY() >= 700) {
                 root.getChildren().remove(((Rectangle) drop.get(i)));
                 drop.remove(i);

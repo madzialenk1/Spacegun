@@ -30,7 +30,8 @@ public class Bullet extends GraphicObject {
     public List<Shape> getShapes() {
         return Arrays.asList(new Shape[]{circle});
     }
-    public Circle getcircle(){
+
+    public Circle getcircle() {
         return circle;
     }
 

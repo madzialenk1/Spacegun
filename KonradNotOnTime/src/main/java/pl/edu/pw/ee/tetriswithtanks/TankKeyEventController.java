@@ -28,14 +28,6 @@ public class TankKeyEventController implements EventHandler<KeyEvent> {
         this.bulletsInGame = bulletsInGame;
     }
 
-    public static void stop() {
-        try {
-            Thread.sleep(400);
-        } catch (Exception e) {
-        }
-    }
-    public int fire1 = 0;
-
     @Override
     public void handle(KeyEvent event) {
         switch (event.getCode()) {
@@ -43,7 +35,6 @@ public class TankKeyEventController implements EventHandler<KeyEvent> {
 
                 fire(rightPlayer);
 
-                //stop();
                 break;
 
             case LEFT:
